@@ -15,17 +15,24 @@
 
     x.lastIp = "127.0.0.1";
 
+    $("#roulette > div.roulette-box > div.chat-container > div.buttons > div > div.buttons__button.disabled.stop-button > div").on("click", () => {
+        var dirtyMessage = document.getElementById("dirtyMessage");
+        if (dirtyMessage != null) {
+            dirtyMessage.remove();
+        }
+    });
+
     x.generateButton = (function () {
         var ip = x.lastIp;
         var dirtyMessage = document.getElementById("dirtyMessage");
         if (document.querySelector(".system").innerHTML.includes("Durch Drücken der Start-Taste und Nutzung"))
             return
 
+        if (document.querySelector(".system").innerHTML.includes(x.lastIp))
+            return;
+
         if (dirtyMessage != null) {
             if (ip == "127.0.0.1")
-                return;
-
-            if (document.querySelector(".system").innerHTML.includes(x.lastIp))
                 return;
 
             if (dirtyMessage.innerHTML.includes(x.lastIp))
