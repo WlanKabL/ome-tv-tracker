@@ -2,7 +2,7 @@
 // @name         Professional IP Grabber
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  try to take over Ome.TV!
+// @description  Try to take over Ome.TV!
 // @author       WlanKabL
 // @match        https://ome.tv/
 // @icon         https://www.google.com/s2/favicons?domain=ome.tv
@@ -11,7 +11,20 @@
 
 (function () {
     'use strict';
+    class BlockedUserModel {
+        constructor(id, ip, timeCode, timeStamp, username = "") {
+            this.id = id;
+            this.username = username;
+            this.ip = ip;
+            this.timeCode = timeCode;
+            this.timeStamp = timeStamp;
+        }
+    }
+
     var x = {};
+
+    x.blockedList = [new BlockedUserModel(0, "127.0.0.1", new Date(), new Date(), new Date().toISOString(), "Default")];
+    console.table(x.blockedList);
 
     x.lastIp = "127.0.0.1";
 
@@ -20,6 +33,14 @@
         if (dirtyMessage != null) {
             dirtyMessage.remove();
         }
+    });
+
+    $("#automaticReport").on("click", () => {
+
+    })
+
+    x.reportUser = (function () {
+
     });
 
     x.generateButton = (function () {
@@ -47,7 +68,7 @@
         var btnStyle = 'background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;'
 
         var event = 'window.open(`https://extreme-ip-lookup.com/' + ip + '`, `_blank`, `width=850, height=300`);';
-        var button = '<button style="' + btnStyle + '" onclick="' + event + '">Track User</button>';
+        var button = '<button style="' + btnStyle + '" onclick="' + event + '">Track User IP</button>';
 
 
         var elem = document.createElement("div");
